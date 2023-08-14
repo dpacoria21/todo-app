@@ -4,12 +4,15 @@ const nameStatus = ['active', 'pending', 'complete'];
 
 export const Todo = ({todo, handleDeleteTodo, handleCompleteTodo, handleActiveTodo, handlePendingTodo}) => {
 
+    // Refactorizar este codigo para que este dentro del todo y trabaje con una
+    // propiedad en este mismo
+
     const [enabled, setEnabled] = useState(false);
 
     let state = '';
-    if(todo.status === 'active') {
+    if(todo.status === nameStatus[0]) {
         state = 'bg-slate-100/90';
-    }else if(todo.status === 'pending') {
+    }else if(todo.status === nameStatus[1]) {
         state = 'bg-yellow-400/80';
     }else {
         state = 'bg-green-600/60';

@@ -12,11 +12,11 @@ export const TodoContainer = () => {
 
             <TodoInput onAddTodo={onHandleNewTodo}/>
             
-            <div className="flex flex-col xl:flex-row justify-center items-center">
+            <div className="flex flex-col select-none xl:flex-row justify-center items-center">
                 <p className="font-roboto font-bold px-4">Tareas: {
                     todos.reduce((acc) => acc+1, 0)
                 }</p>
-                <p className="font-roboto font-bold text-yellow-400/80 px-4">Pendientes: {
+                <p className="font-roboto font-bold text-yellow-500/80 px-4">Pendientes: {
                     todos.reduce((acc, current) => {
                         if(current.status === nameStatus[1]) {
                             return acc+1;
