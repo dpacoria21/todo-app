@@ -17,13 +17,7 @@ export const Todo = ({todo, handleDeleteTodo, handleCompleteTodo, handleActiveTo
     }
 
     return (
-        <div onDoubleClick={() => handleToggleTodo(todo.id)} className={`relative ${state} h-full ${todo.done ? '':'opacity-50'} py-2 flex flex-col md:flex-row gap-1 cursor-pointer items-center justify-between transition-all duration-300 px-5 rounded-sm hover:scale-105`}>
-            <div className="absolute left-0 flex justify-center w-full items-center px-4">
-                {
-                    !todo.done && <hr className="z-20 border-2 border-slate-500 w-full"/>
-                }
-            </div>
-
+        <div onDoubleClick={() => handleToggleTodo(todo.id)} className={`relative ${!todo.done && 'line-through decoration-2'} ${state} h-full ${todo.done ? '':'opacity-50'} py-2 flex flex-col md:flex-row gap-1 cursor-pointer items-center justify-between transition-all duration-300 px-5 rounded-sm hover:scale-105`}>
             <p className={`font-roboto font-semibold text-md text-blue-500 select-none whitespace-nowrap`}> {todo.title} </p>
             <div className={`flex ${!todo.done && 'pointer-events-none'} justify-center flex-wrap items-center gap-3`}>
                 <button onClick={() => handleCompleteTodo(todo.id)} className="cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-lg">
