@@ -13,9 +13,7 @@ export const useTodos = () => {
     const [ todos, dispatchTodo ] = useReducer(todoReducer, initialState, init);
     
     useEffect(() => {
-        console.log(todos);
         localStorage.setItem('todos', JSON.stringify(todos));
-        console.log('saludos');
     }, [todos]);
 
     const onHandleNewTodo = (newTodo) => {
@@ -58,7 +56,16 @@ export const useTodos = () => {
         dispatchTodo(action);
     }
 
+    const onHandleToggleTodo = (id) => {
+        const action = {
+            type: '[TODO] Toggle Todo',
+            payload: id
+        }
+        dispatchTodo(action);
+    }
+
     // onHandleUpdatetodo
+    
 
     return {
         todos,
@@ -66,6 +73,7 @@ export const useTodos = () => {
         onHandleCompleteTodo,
         onHandleDeleteTodo,
         onHandlePendingTodo,
-        onHandleActiveTodo
+        onHandleActiveTodo,
+        onHandleToggleTodo
     }
 }

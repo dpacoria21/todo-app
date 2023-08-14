@@ -2,12 +2,10 @@ import { useState } from "react";
 
 const nameStatus = ['active', 'pending', 'complete'];
 
-export const Todo = ({todo, handleDeleteTodo, handleCompleteTodo, handleActiveTodo, handlePendingTodo}) => {
+export const Todo = ({todo, handleDeleteTodo, handleCompleteTodo, handleActiveTodo, handlePendingTodo, handleToggleTodo}) => {
 
     // Refactorizar este codigo para que este dentro del todo y trabaje con una
     // propiedad en este mismo
-
-    const [enabled, setEnabled] = useState(false);
 
     let state = '';
     if(todo.status === nameStatus[0]) {
@@ -18,17 +16,16 @@ export const Todo = ({todo, handleDeleteTodo, handleCompleteTodo, handleActiveTo
         state = 'bg-green-600/60';
     }
 
-    const disabled = () => {
-        setEnabled(!enabled)
-    }
-
     return (
-        <div onDoubleClick={disabled} className={`relative ${state} h-full ${enabled ? 'opacity-50':''} py-2 flex flex-col md:flex-row gap-1 cursor-pointer items-center justify-between transition-all duration-300 px-5 rounded-sm hover:scale-105`}>
-            {
-                enabled && <hr className="z-20 absolute left-0 border-2 border-slate-500 w-full "/>
-            }
+        <div onDoubleClick={() => handleToggleTodo(todo.id)} className={`relative ${state} h-full ${todo.done ? '':'opacity-50'} py-2 flex flex-col md:flex-row gap-1 cursor-pointer items-center justify-between transition-all duration-300 px-5 rounded-sm hover:scale-105`}>
+            <div className="absolute left-0 flex justify-center w-full items-center px-4">
+                {
+                    !todo.done && <hr className="z-20 border-2 border-slate-500 w-full"/>
+                }
+            </div>
+
             <p className={`font-roboto font-semibold text-md text-blue-500 select-none whitespace-nowrap`}> {todo.title} </p>
-            <div className={`flex ${enabled && 'pointer-events-none'} justify-center flex-wrap items-center gap-3`}>
+            <div className={`flex ${!todo.done && 'pointer-events-none'} justify-center flex-wrap items-center gap-3`}>
                 <button onClick={() => handleCompleteTodo(todo.id)} className="cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" className="bi bi-check-circle-fill fill-sky-100 bg-blue-500 rounded-full" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>

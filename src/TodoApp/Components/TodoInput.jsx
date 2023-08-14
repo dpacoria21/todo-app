@@ -16,6 +16,7 @@ export const TodoInput = ({onAddTodo}) => {
             id: uuid(),
             status: 'active',
             title,
+            done: true,
         }
         onAddTodo(newTodo);
         onResetForm();
