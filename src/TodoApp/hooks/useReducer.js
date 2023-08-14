@@ -5,6 +5,26 @@ export const todoReducer = (initialState = [], action) => {
             return [...initialState, action.payload];
         case '[TODO] Delete Todo':
             return initialState.filter((todo) => todo.id !== action.payload);
+        case '[TODO] Complete Todo':
+            return initialState.map((todo) => {
+                if(todo.id === action.payload) {
+                    return {
+                        ...todo,
+                        status: 'complete'
+                    }
+                }
+                return todo;
+            });
+        case '[TODO] Active Todo':
+            return initialState.map((todo) => {
+                if(todo.id === action.payload) {
+                    return {
+                        ...todo,
+                        status: 'active'
+                    }
+                }
+                return todo;
+            });
         default:
             console.log('No se realizo ninguna action');
             return initialState;
