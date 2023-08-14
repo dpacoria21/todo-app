@@ -25,6 +25,16 @@ export const todoReducer = (initialState = [], action) => {
                 }
                 return todo;
             });
+        case '[TODO] Pending Todo':
+            return initialState.map((todo) => {
+                if(todo.id === action.payload) {
+                    return {
+                        ...todo,
+                        status: 'pending'
+                    }
+                }
+                return todo;
+            });
         default:
             console.log('No se realizo ninguna action');
             return initialState;

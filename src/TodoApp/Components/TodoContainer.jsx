@@ -51,6 +51,14 @@ export const TodoContainer = () => {
         dispatchTodo(action);
     }
 
+    const onHandlePendingTodo = (id) => {
+        const action = {
+            type: '[TODO] Pending Todo',
+            payload: id
+        }
+        dispatchTodo(action);
+    }
+
     return (
         <section className="flex flex-col gap-8 py-10 px-5 w-5/6 md:w-2/6 bg-slate-100/80 rounded-xl">
 
@@ -65,6 +73,7 @@ export const TodoContainer = () => {
                             handleDeleteTodo={onHandleDeleteTodo}
                             handleCompleteTodo={onHandleCompleteTodo}
                             handleActiveTodo={onHandleActiveTodo}
+                            handlePendingTodo={onHandlePendingTodo}
                         />
                     ))
                 }
