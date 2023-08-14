@@ -12,7 +12,7 @@ export const TodoContainer = () => {
 
             <TodoInput onAddTodo={onHandleNewTodo}/>
             
-            <div className="flex flex-col select-none xl:flex-row justify-center items-center">
+            <div className="flex flex-col text-lg text-center gap-2 select-none xl:flex-row justify-center items-center">
                 <p className="font-roboto font-bold px-4">Tareas: {
                     todos.reduce((acc, current) => current.done ? acc+1: acc
                         , 0)
