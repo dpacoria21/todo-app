@@ -1,52 +1,49 @@
+import { useEffect, useReducer } from "react";
+import { todoReducer } from "../hooks/useReducer";
 import { Todo } from "./Todo"
 import { TodoInput } from "./TodoInput"
 
+let initialState = [];
+
+const init = () => {
+    return JSON.parse(localStorage.getItem('todos')) || [];
+}
+
 export const TodoContainer = () => {
 
-    const nameStatus = ['active', 'pending', 'complete']
+    const [ todos, dispatchTodo ] = useReducer(todoReducer, initialState, init);
 
-    const todos = [
-        {
-            id: 0,
-            status: nameStatus[0],
-            title: 'Learn Redux',
-        },
-        {
-            id: 1,
-            status: nameStatus[0],
-            title: 'Learn NodeJS',
-        },
-        {
-            id: 2,
-            status: nameStatus[0],
-            title: 'Learn tailwindCSS',
-        },
-        {
-            id: 3,
-            status: nameStatus[1],
-            title: 'Learn MySQL'
-        },
-        {
-            id: 4,
-            status: nameStatus[1],
-            title: 'Learn Git'
-        },
-        {
-            id: 5,
-            status: nameStatus[2],
-            title: 'Learn JavaScript'
+    useEffect(() => {
+        console.log(todos);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        console.log('saludos');
+    }, [todos])
+
+    const onHandleNewTodo = (newTodo) => {
+        const action = {
+            type: '[TODO] Add Todo',
+            payload: newTodo
         }
-    ]
+        dispatchTodo(action)
+    }
+
+    const onHandleDeleteTodo = (id) => {
+        const action = {
+            type: '[TODO] Delete Todo',
+            payload: id
+        }
+        dispatchTodo(action);
+    }
 
     return (
-        <section className="flex flex-col gap-8 py-10 px-5 w-4/6 sm:w-3/6 bg-slate-100/80 rounded-xl">
+        <section className="flex flex-col gap-8 py-10 px-5 w-5/6 md:w-2/6 bg-slate-100/80 rounded-xl">
 
-            <TodoInput />
+            <TodoInput onAddTodo={onHandleNewTodo}/>
 
             <div className="flex flex-col gap-5">
                 {
                     todos.map((todo) => (
-                        <Todo key={todo.id} todo={todo} />
+                        <Todo key={todo.id} todo={todo} handleDeleteTodo={onHandleDeleteTodo}/>
                     ))
                 }
             </div>
