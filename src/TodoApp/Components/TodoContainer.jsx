@@ -1,20 +1,18 @@
 import { Todo, TodoInput } from "./"
-import { useTodos } from "../hooks/useTodos";
 import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 
 export const TodoContainer = () => {
 
-    const {dni, name} = useContext(TodoContext);
-    console.log({dni, name});
+    const {todos} = useContext(TodoContext);
+    
     
     const nameStatus = ['active', 'pending', 'complete'];
-    const {todos, onHandleActiveTodo, onHandleCompleteTodo, onHandleDeleteTodo, onHandleNewTodo, onHandlePendingTodo, onHandleToggleTodo} = useTodos();
 
     return (
         <section className="flex flex-col w-5/6 gap-8 px-10 py-10 md:w-5/12 bg-slate-100/80 rounded-xl">
 
-            <TodoInput onAddTodo={onHandleNewTodo}/>
+            <TodoInput />
             
             <div className="flex flex-col items-center justify-center gap-2 text-lg text-center select-none xl:flex-row">
                 <p className="px-4 font-bold font-roboto">Tareas: {
@@ -45,11 +43,6 @@ export const TodoContainer = () => {
                         <Todo 
                             key={todo.id} 
                             todo={todo} 
-                            handleDeleteTodo={onHandleDeleteTodo}
-                            handleCompleteTodo={onHandleCompleteTodo}
-                            handleActiveTodo={onHandleActiveTodo}
-                            handlePendingTodo={onHandlePendingTodo}
-                            handleToggleTodo={onHandleToggleTodo}
                         />
                     ))
                 }
