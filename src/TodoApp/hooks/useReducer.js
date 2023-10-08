@@ -43,6 +43,13 @@ export const todoReducer = (initialState = [], action) => {
                     }
                 }
                 return todo;
+            });
+        case '[TODO] Update Todo':
+            return initialState.map((todo) => {
+                if(todo.id === action.payload.id) {
+                    return action.payload;
+                }
+                return todo;
             })
         default:
             console.log('No se realizo ninguna action');

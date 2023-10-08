@@ -64,7 +64,13 @@ export const useTodos = () => {
         dispatchTodo(action);
     }
 
-    // onHandleUpdatetodo
+    const onHandleUpdateTodo = (todo) => {
+        const action = {
+            type: '[TODO] Update Todo',
+            payload: todo
+        }
+        dispatchTodo(action);
+    }
     
 
     return {
@@ -74,6 +80,7 @@ export const useTodos = () => {
         onHandleDeleteTodo,
         onHandlePendingTodo,
         onHandleActiveTodo,
-        onHandleToggleTodo
+        onHandleToggleTodo,
+        onHandleUpdateTodo
     }
 }

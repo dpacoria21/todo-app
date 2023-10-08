@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { useForm } from "../hooks/useForm";
 import { v4 as uuid } from 'uuid';
@@ -6,24 +6,39 @@ import { v4 as uuid } from 'uuid';
 
 export const TodoInput = () => {
 
-    const {onHandleNewTodo} = useContext(TodoContext);
+    const { todoActive, onHandleNewTodo, onHandleUpdateTodo, onResetActiveTodo} = useContext(TodoContext);
 
-    const {title, onInputChange, onResetForm} = useForm({
-        title: ''
-    })
+    const {title, onInputChange, onResetForm, onUpdateForm} = useForm({
+        title: todoActive.title
+    });
+
+    useEffect(() => {
+        onUpdateForm('title', todoActive.title);
+    }, [todoActive]);
 
     const onSubmitForm = (event) => {
         event.preventDefault();
-        if(title <= 1) return;
 
-        const newTodo = {
-            id: uuid(),
-            status: 'active',
-            title,
-            done: true,
+        if(title <= 1) return;
+        if(todoActive.id !== null) {
+            onHandleUpdateTodo({
+                ...todoActive,
+                title
+            });
+            onResetForm();
+            onResetActiveTodo();
+            
+        }else {
+            const newTodo = {
+                id: uuid(),
+                status: 'active',
+                title,
+                done: true,
+            }
+            onHandleNewTodo(newTodo);
+            onResetForm();
         }
-        onHandleNewTodo(newTodo);
-        onResetForm();
+
     }
 
     return (
