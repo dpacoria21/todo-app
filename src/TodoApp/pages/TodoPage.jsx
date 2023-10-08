@@ -1,10 +1,10 @@
-import { TodoContainer } from "../Components/TodoContainer"
+import { TodoContainer } from "../components"
 
 export const TodoPage = () => {
 
     
     return (
-        <main className="flex justify-center items-center bg-gradient-to-r from-blue-600 to-cyan-500 min-h-screen py-48">
+        <main className="flex items-center justify-center min-h-screen py-48 bg-gradient-to-r from-blue-600 to-cyan-500">
             <TodoContainer />
         </main>
     )

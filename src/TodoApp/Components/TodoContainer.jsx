@@ -1,23 +1,27 @@
-import { Todo } from "./Todo"
-import { TodoInput } from "./TodoInput"
+import { Todo, TodoInput } from "./"
 import { useTodos } from "../hooks/useTodos";
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 
 export const TodoContainer = () => {
+
+    const {dni, name} = useContext(TodoContext);
+    console.log({dni, name});
     
     const nameStatus = ['active', 'pending', 'complete'];
     const {todos, onHandleActiveTodo, onHandleCompleteTodo, onHandleDeleteTodo, onHandleNewTodo, onHandlePendingTodo, onHandleToggleTodo} = useTodos();
 
     return (
-        <section className="flex flex-col gap-8 py-10 px-10 w-5/6 md:w-5/12 bg-slate-100/80 rounded-xl">
+        <section className="flex flex-col w-5/6 gap-8 px-10 py-10 md:w-5/12 bg-slate-100/80 rounded-xl">
 
             <TodoInput onAddTodo={onHandleNewTodo}/>
             
-            <div className="flex flex-col text-lg text-center gap-2 select-none xl:flex-row justify-center items-center">
-                <p className="font-roboto font-bold px-4">Tareas: {
+            <div className="flex flex-col items-center justify-center gap-2 text-lg text-center select-none xl:flex-row">
+                <p className="px-4 font-bold font-roboto">Tareas: {
                     todos.reduce((acc, current) => current.done ? acc+1: acc
                         , 0)
                 }</p>
-                <p className="font-roboto font-bold text-yellow-500/80 px-4">Pendientes: {
+                <p className="px-4 font-bold font-roboto text-yellow-500/80 ">Pendientes: {
                     todos.reduce((acc, current) => {
                         if(current.status === nameStatus[1] && current.done) {
                             return acc+1;
@@ -25,7 +29,7 @@ export const TodoContainer = () => {
                         return acc;
                     }, 0)
                 }</p>
-                <p className="font-roboto font-bold text-green-600/60 px-4">Completadas: {
+                <p className="px-4 font-bold font-roboto text-green-600/60">Completadas: {
                     todos.reduce((acc, current) => {
                         if(current.status === nameStatus[2] && current.done) {
                             return acc+1;
